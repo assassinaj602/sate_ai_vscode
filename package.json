@@ -2,7 +2,7 @@
   "name": "sate-ai-vscode",
   "displayName": "SATE AI - AI Model Testing",
   "description": "Run SATE AI stress tests directly from VS Code",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "assassinaj602",
   "keywords": [
     "sate-ai",
