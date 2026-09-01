@@ -1,0 +1,117 @@
+{
+  "name": "sate-ai-vscode",
+  "displayName": "SATE AI - AI Model Testing",
+  "description": "Run SATE AI stress tests directly from VS Code",
+  "version": "0.1.0",
+  "publisher": "assassinaj602",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/assassinaj602/sate_ai_vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Testing",
+    "Machine Learning",
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:pubspec.yaml",
+    "onCommand:sate-ai.runStressTest",
+    "onCommand:sate-ai.runBaseline",
+    "onCommand:sate-ai.viewReport",
+    "onCommand:sate-ai.openDashboard",
+    "onLanguage:yaml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "sate-ai.runStressTest",
+        "title": "Run SATE AI Stress Test",
+        "category": "SATE AI"
+      },
+      {
+        "command": "sate-ai.runBaseline",
+        "title": "Save as Baseline",
+        "category": "SATE AI"
+      },
+      {
+        "command": "sate-ai.viewReport",
+        "title": "View Latest Report",
+        "category": "SATE AI"
+      },
+      {
+        "command": "sate-ai.openDashboard",
+        "title": "Open Dashboard",
+        "category": "SATE AI"
+      }
+    ],
+    "menus": {
+      "command-palette": [
+        {
+          "command": "sate-ai.runStressTest",
+          "when": "workspaceContains:pubspec.yaml"
+        },
+        {
+          "command": "sate-ai.runBaseline",
+          "when": "workspaceContains:pubspec.yaml"
+        },
+        {
+          "command": "sate-ai.viewReport",
+          "when": "workspaceContains:pubspec.yaml"
+        },
+        {
+          "command": "sate-ai.openDashboard",
+          "when": "workspaceContains:pubspec.yaml"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "sate-ai.runStressTest",
+          "when": "resourceExtname == .gguf || resourceExtname == .tflite || resourceExtname == .onnx",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SATE AI",
+      "properties": {
+        "sate-ai.modelPath": {
+          "type": "string",
+          "default": "models/model.gguf",
+          "description": "Default path to the AI model file"
+        },
+        "sate-ai.injectors": {
+          "type": "array",
+          "default": [
+            "memoryPressure",
+            "malformedInput"
+          ],
+          "description": "Default injectors to use"
+        },
+        "sate-ai.timeout": {
+          "type": "integer",
+          "default": 30,
+          "description": "Timeout in seconds"
+        },
+        "sate-ai.reportDirectory": {
+          "type": "string",
+          "default": "stress_reports",
+          "description": "Directory to store reports"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.130",
+    "@types/vscode": "^1.134.0",
+    "typescript": "^5.9.3"
+  }
+}
